@@ -12,9 +12,6 @@ export class HelloComponent {
   name: string = '';
 
   get displayName(): string {
-    if (this.name) {
-      return this.name;
-    }
-    return 'World';
+    return this.name || 'World';
   }
 }
