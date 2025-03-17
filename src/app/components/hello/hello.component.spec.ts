@@ -20,4 +20,11 @@ describe('HelloComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render text', () => {
+    const compiled = fixture.nativeElement;
+
+    expect(compiled.querySelector('p').textContent)
+      .toContain('hello works!');
+  });
 });
