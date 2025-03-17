@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HelloComponent } from './hello.component';
+import { By } from '@angular/platform-browser';
 
 describe('HelloComponent', () => {
   let component: HelloComponent;
@@ -34,4 +35,24 @@ describe('HelloComponent', () => {
       expect(component.displayName).toEqual(name);
     });
   })
+
+  describe('by css', () => {
+    it('shows "Hello World!" when no name is given', () => {
+      const helloWorldParagraph
+        = fixture.debugElement.query(By.css('#hello_world')).nativeElement;
+
+      expect(helloWorldParagraph.innerText).toEqual('hello World!');
+    });
+
+    it('shows "Hello Maxi" when given name is Maxi', () => {
+      component.name = 'Maxi';
+      fixture.detectChanges();
+
+      const helloWorldParagraph = fixture.debugElement
+        .query(By.css('#hello_user'))
+        .nativeElement;
+
+      expect(helloWorldParagraph.innerText).toEqual('hello Maxi!');
+    });
+  });
 });
