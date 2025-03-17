@@ -21,10 +21,17 @@ describe('HelloComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render text', () => {
-    const compiled = fixture.nativeElement;
+  describe('displayName', () => {
+    it('returns "World" as displayName when no name is given', () => {
+      expect(component.displayName).toEqual('World');
+    });
 
-    expect(compiled.querySelector('p').textContent)
-      .toContain('hello works!');
-  });
+    it('returns "Maxi" when name is "Maxi"', () => {
+      const name = 'Maxi';
+
+      component.name = name;
+
+      expect(component.displayName).toEqual(name);
+    });
+  })
 });
