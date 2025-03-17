@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './hello.component.css'
 })
 export class HelloComponent {
+  name = 'works';
 
 }
