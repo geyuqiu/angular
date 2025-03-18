@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Weather } from '../../models/weather';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { map, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-weather',
@@ -17,8 +18,13 @@ export class WeatherComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.httpClient.get<WeatherApiResponse>(this.apiUrl)
-      .subscribe(response => this.weather = response.main);
+    const weatherObservable: Observable<any> = this.httpClient
+      .get<HttpResponse<WeatherApiResponse>>(this.apiUrl, {observe: 'response'});
+    weatherObservable.pipe(
+      tap((response: HttpResponse<WeatherApiResponse>) => console.info('Weather from server', response)),
+      map(response => response.body),
+      map(responseFromServer => responseFromServer!.main)
+    ).subscribe((response: Weather) => this.weather = response);
   }
 }
 
