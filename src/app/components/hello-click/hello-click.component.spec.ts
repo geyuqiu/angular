@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HelloClickComponent } from './hello-click.component';
+import { By } from '@angular/platform-browser';
 
 describe('HelloClickComponent', () => {
   let component: HelloClickComponent;
@@ -17,7 +18,24 @@ describe('HelloClickComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('trigger click by component instance', () => {
+    expect(component.buttonWasClicked).toBeFalsy();
+
+    component.sayHello();
+
+    expect(component.buttonWasClicked).toBeTruthy();
+  });
+
+  it('emulate click', () => {
+    expect(component.buttonWasClicked).toBeFalsy();
+    fixture.debugElement.query(By.css('button'))
+      .nativeElement.click();
+    expect(component.buttonWasClicked).toBeTruthy();
+
+    fixture.detectChanges();
+
+    const paragraph = fixture
+      .debugElement.query(By.css('p')).nativeElement;
+    expect(paragraph.innerText).toEqual('Hello button was clicked');
   });
 });
