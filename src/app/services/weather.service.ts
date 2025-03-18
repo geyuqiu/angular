@@ -8,8 +8,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 })
 export class WeatherService {
 
-  private apiUrl = 'http://api.openweathermap.org/data/2.5/weather?q=Munich,de&units=metric&APPID=faf17d6bfe1477a97755d5134779e59c'
-
+  private apiUrl = 'http://api.openweathermap.org/data/2.5/weather?q=Munich,de&units=metric'
   constructor(private httpClient: HttpClient) { }
 
   fetchWeather(): Observable<Weather> {
